@@ -7,29 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Monocle</title>
   <script src="./src/monocle.js"></script>
-  <script>
-
-    var buttons
-    window.onload = _ => {
-      buttons = Array.from(document.querySelectorAll("button"))
-      buttons.map(b => b.disabled = true)
-      document.querySelector("#connect").disabled = false
-    }
-
-    function sendFromButton() {
-      if (!myMonocle) { console.error('no monocle found'); return; }
-      parsedcode = this.parentElement.children[1].value
-      console.log('parsedcode:', parsedcode)
-      myMonocle.repl(parsedcode)
-        .then(r => showOutput(r))
-    }
-
-    function showOutput(r) {
-      console.log('raw return:', r)
-      document.querySelector("#output").innerText
-        += r.replace('OK', '').slice(0, -3)
-    }
-  </script>
+  <script src="./src/main.js"></script>
 </head>
 
 <body>
@@ -40,8 +18,61 @@
     <h3>
       フラッシュ暗算
     </h3>
-    <textarea cols="80">import display
-display.show( display.Text( "Hi from JS", 100, 100, display.GREEN) )</textarea>
+    <textarea cols="80" style="display:none">
+import random
+import display
+import time
+import touch
+display.brightness(3)
+def fn(arg):
+    global f
+    print(touch.state())
+    if arg == touch.A:
+        if f != 0:
+            return
+        quiz()
+    if arg == touch.B:
+        if f != 2:
+            return
+        global sum
+        global f
+        f = 0
+        sum = str(sum)
+        text = display.Text(sum, 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+        display.show(text)
+def bold(num, sec):
+    width = 1
+    timeout = time.time() + sec
+    while True:
+        text = display.Text(num, 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+        display.show(text)
+        text = display.Text(num, 320 + width, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+        display.show(text)
+        text = display.Text(num, 320, 200 + width, display.WHITE, justify=display.MIDDLE_CENTER)
+        display.show(text)
+        text = display.Text(num, 320 + width, 200 + width, display.WHITE, justify=display.MIDDLE_CENTER)
+        display.show(text)
+        if time.time() >= timeout:
+            break
+def quiz():
+    global sum
+    global f
+    sum = 0
+    f = 1
+    bold("start!", 2)
+    for i in range(5):
+        num = int(random.randint(10, 100))
+        sum += num
+        num = str(num)
+        bold(num, 1)
+    text = display.Text('L button press is answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+    display.show(text)
+    f = 2
+f = 0
+text = display.Text('R button press is start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+display.show(text)
+touch.callback(touch.EITHER, fn)
+</textarea>
     <br>
     <button onclick="sendFromButton.call(this)" disabled="">send</button>
   </div>
@@ -58,8 +89,8 @@ display.show( display.Text( "Hi from JS", 100, 100, display.GREEN) )</textarea>
   <footer class="footer">
     <h4>Around</h4>
     <ul>
-      <li><a role="button" href="https://"><i class="">あ</i></a></li>
-      <li><a role="button" href="https://"><i class="">あ</i></a></li>
+      <li><a role="button" href="https://google.co.jp"><i class="">あ</i></a></li>
+      <li><a role="button" href="https://google.com"><i class="">あ</i></a></li>
     </ul>
 
   </footer>
