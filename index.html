@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0028)https://monoclejs.glitch.me/ -->
 <html lang="en">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <link rel="icon" href="https://glitch.com/favicon.ico"> -->
-  <title>HMonocle</title>
+  <title>Monocle</title>
   <link rel="stylesheet" href="./src/style.css">
   <script src="./src/monocle.js"></script>
   <script>
@@ -22,10 +20,7 @@
     function sendFromButton() {
       if (!myMonocle) { console.error('no monocle found'); return; }
       parsedcode = this.parentElement.children[1].value
-      //.replaceAll("\n", ";")
-      //.replaceAll(":;", ":")
       console.log('parsedcode:', parsedcode)
-      // should instead check for trailing ; or : and if so, no ;
       myMonocle.repl(parsedcode)
         .then(r => showOutput(r))
     }
@@ -35,14 +30,6 @@
       document.querySelector("#output").innerText
         += r.replace('OK', '').slice(0, -3)
     }
-    // ここから
-    mpy = {
-      battery: 'import device; print(device.battery_level())',
-      clearScreen: 'import display; display.show( display.Text( "", 100, 100, display.BLACK) )',
-      preventSleep: 'import device; device.prevent_sleep(True)',
-      forceSleep: 'import device; device.force_sleep()',
-    }
-    // ここまで
   </script>
 </head>
 
@@ -68,99 +55,6 @@ display.show( display.Text( "Hi from JS", 100, 100, display.GREEN) )</textarea>
       <code id="output"></code>
     </div>
   </div>
-  <!-- ここから -->
-  <!-- <div>
-    <h3>
-      code snippet 2 : turning on green LED
-    </h3>
-    <textarea cols="80">import led
-led.on( led.GREEN) </textarea>
-    <br>
-    <button onclick="sendFromButton.call(this)" disabled="">send</button>
-  </div>
-  <div>
-    <h3>
-      code snippet 3 : filesystem
-    </h3>
-    <textarea cols="80">for i in uos.listdir():
-     print(i)
-     uos.chdir(i)
-     print(uos.listdir())
-     uos.chdir('..')</textarea><br>
-    Anything before iterations fails, blocks the rest. Seems import uos isn't required.
-    <br>
-    <button onclick="sendFromButton.call(this)" disabled="">send</button>
-  </div>
-
-  <h3>
-    helpers
-  </h3>
-
-  <button onclick="myMonocle.repl(mpy.battery).then(r=&gt;showOutput(r))" disabled="">
-    get battery
-  </button>
-
-  <button onclick="myMonocle.repl(mpy.clearScreen).then(r=&gt;showOutput(r))" disabled="">
-    clear screen
-  </button>
-
-  <button onclick="myMonocle.repl(mpy.preventSleep).then(r=&gt;showOutput(r))" disabled="">
-    prevent sleep
-  </button>
-
-  <button onclick="myMonocle.repl(mpy.forceSleep).then(r=&gt;showOutput(r))" disabled="">
-    force sleep
-  </button>
-  
-  <h3>
-    documentation
-  </h3>
-
-  <div>
-    Once connected see <code>myMonocle</code> and to send <a
-      href="https://docs.brilliantmonocle.com/micropython/micropython/">microPython code</a> use
-    <code>myMonocle.repl('your code')</code>
-  </div>
-
-  <div>
-    You can directly use <code>https://monocolejs.glitch.me/monoclejs</code> as a no-build solution.
-  </div>
-
-  <div>
-    Based on <a href="https://github.com/semtexzv/monoapp/blob/master/src/lib/monocle.ts">monocle.ts</a> transformed
-    with Babel and exposing myMonocle.
-  </div>
-  <hr>
-
-  <button onclick="highlightCode()" disabled="">code highlight</button>
-  <div id="editableCode" contenteditable="true">
-    <pre class="shiki nord" style="background-color: #2e3440ff"
-      tabindex="0"><code><span class="line"><span style="color: #81A1C1">import</span><span style="color: #D8DEE9FF"> device; </span><span style="color: #88C0D0">print</span><span style="color: #ECEFF4">(</span><span style="color: #D8DEE9FF">device</span><span style="color: #ECEFF4">.</span><span style="color: #88C0D0">battery_level</span><span style="color: #ECEFF4">())</span></span></code></pre>
-  </div> -->
-  <!-- ここまで -->
-
-  <!-- <script src="./src/shiki"></script> -->
-
-  <!-- <script>
-    var editor = document.getElementById('editableCode')
-    editor.contentEditable = true
-
-    var myHighlighter
-    shiki
-      .getHighlighter({
-        theme: 'nord'
-      })
-      .then(highlighter => {
-        myHighlighter = highlighter
-        highlightCode()
-      })
-
-    function highlightCode() {
-      if (!myHighlighter) return
-      code = myHighlighter.codeToHtml(editor.innerText, { lang: 'python' })
-      editor.innerHTML = code
-    }
-  </script> -->
 
   <footer class="footer">
     <h4>Around</h4>
