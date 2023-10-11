@@ -78,3 +78,17 @@ function hell() {
   document.getElementById("int").value = 0.1;
   document.getElementById("num").value = 10;
 }
+
+function save() {
+  localStorage.setItem("max", document.getElementById("max").value);
+  localStorage.setItem("min", document.getElementById("min").value);
+  localStorage.setItem("int", document.getElementById("int").value);
+  localStorage.setItem("num", document.getElementById("num").value);
+}
+
+function load() {
+  document.getElementById("max").value = localStorage.getItem("max");
+  document.getElementById("min").value = localStorage.getItem("min");
+  document.getElementById("int").value = localStorage.getItem("int");
+  document.getElementById("num").value = localStorage.getItem("num");
+}
