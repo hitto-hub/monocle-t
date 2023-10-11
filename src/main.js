@@ -38,6 +38,13 @@ function send() {
   myMonocle.repl(sendcode)
     .then(r => showOutput(r))
 }
+function sendreset() {
+  if (!myMonocle) { console.error('no monocle found'); return; }
+  sendcode = "import device\n"
+  sendcode += "device.reset()\n"
+  myMonocle.repl(sendcode)
+    .then(r => showOutput(r))
+}
 
 function showOutput(r) {
   console.log('raw return:', r)

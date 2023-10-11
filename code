@@ -20,16 +20,16 @@ def fn():
         sum = str(sum)
         text = display.Text(sum, 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
         display.show(text)
-        t = time.time()
+        t = time.ticks_ms()
         while (True):
-            if touch.state(touch.EITHER) and t + 1 < time.time():
+            if touch.state(touch.EITHER) and t + 1000 < time.ticks_ms():
                 print("2")
                 break
         fn()
 
 def bold(num, sec):
     width = 1
-    timeout = time.time() + sec
+    timeout = time.ticks_ms() + sec * 1000
     while True:
         text = display.Text(num, 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
         display.show(text)
@@ -39,7 +39,7 @@ def bold(num, sec):
         display.show(text)
         text = display.Text(num, 320 + width, 200 + width, display.WHITE, justify=display.MIDDLE_CENTER)
         display.show(text)
-        if time.time() >= timeout:
+        if time.ticks_ms() >= timeout:
             break
 def quiz():
     global sum
