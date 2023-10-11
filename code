@@ -6,13 +6,9 @@ display.brightness(3)
 def fn(arg):
     global f
     print(touch.state())
-    if arg == touch.A:
-        if f != 0:
-            return
+    if f == 0:
         quiz()
-    if arg == touch.B:
-        if f != 2:
-            return
+    if f == 2:
         global sum
         global f
         f = 0
