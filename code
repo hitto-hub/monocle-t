@@ -6,9 +6,13 @@ display.brightness(3)
 def fn(arg):
     global f
     print(touch.state())
-    if f == 0:
+    if arg == touch.A:
+        if f != 0:
+            return
         quiz()
-    if f == 2:
+    if arg == touch.B:
+        if f != 2:
+            return
         global sum
         global f
         f = 0
@@ -32,24 +36,18 @@ def bold(num, sec):
 def quiz():
     global sum
     global f
-    global tmp
     sum = 0
     f = 1
     bold("start!", 2)
     for i in range({num}):
-        while True:
-            num = int(random.randint({min}, {max}))
-            if num != tmp:
-                tmp = num
-                break
+        num = int(random.randint({min}, {max}))
         sum += num
         num = str(num)
         bold(num, {int})
-    text = display.Text('button press is answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+    text = display.Text('L button press is answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
     display.show(text)
     f = 2
 f = 0
-tmp = 0
-text = display.Text('button press is start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+text = display.Text('R button press is start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
 display.show(text)
 touch.callback(touch.EITHER, fn)
