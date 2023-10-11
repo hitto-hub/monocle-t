@@ -51,3 +51,30 @@ function showOutput(r) {
   document.querySelector("#output").innerText
     += r.replace('OK', '').slice(0, -3) // -3 to remove the \r\n
 }
+function easy() {
+  document.getElementById("max").value = 10;
+  document.getElementById("min").value = 1;
+  document.getElementById("int").value = 1;
+  document.getElementById("num").value = 5;
+}
+
+function normal() {
+  document.getElementById("max").value = 10;
+  document.getElementById("min").value = 1;
+  document.getElementById("int").value = 0.5;
+  document.getElementById("num").value = 5;
+}
+
+function hard() {
+  document.getElementById("max").value = 100;
+  document.getElementById("min").value = 1;
+  document.getElementById("int").value = 0.3;
+  document.getElementById("num").value = 5;
+}
+
+function hell() {
+  document.getElementById("max").value = 100;
+  document.getElementById("min").value = 1;
+  document.getElementById("int").value = 0.1;
+  document.getElementById("num").value = 10;
+}
