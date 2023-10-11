@@ -57,8 +57,9 @@ def quiz():
         sum += num
         num = str(num)
         bold(num, {int})
+    sub = display.Text('Thinking...', 320, 140, display.WHITE, justify=display.MIDDLE_CENTER)
     text = display.Text('touch to display answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
-    display.show(text)
+    display.show(text, sub)
     f = 2
 f = 0
 text = display.Text('touch to start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
