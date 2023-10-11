@@ -18,8 +18,14 @@
   <button id="connect" onclick="connect().then(_=&gt; buttons.map( b =&gt; b.disabled = false ) )">connect</button>
 
   <div>
-    
-    <button onclick="send()" disabled="">send</button>
+    <form action="" method="post">
+      <p>min：<input type="number" id="min" size="10" value="10" min="1"></p>
+      <p>max：<input type="number" id="max" size="10" value="100" min="1"></p>
+      <p>int：<input type="number" id="int" size="10" value="1" min="1"></p>
+      <p>num：<input type="number" id="num" size="10" value="5" min="1"></p>
+      <p><button type="button" onclick="send()" disabled="" id="">send</button></p>
+    </form>
+    <!-- <button onclick="send()" disabled="">send</button> -->
   </div>
   <div>
     <h3>
