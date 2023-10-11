@@ -11,70 +11,15 @@
 </head>
 
 <body>
+  <h2>
+    フラッシュ暗算
+  </h2>
 
   <button id="connect" onclick="connect().then(_=&gt; buttons.map( b =&gt; b.disabled = false ) )">connect</button>
 
   <div>
-    <h3>
-      フラッシュ暗算
-    </h3>
-    <textarea cols="80" style="display:none">
-import random
-import display
-import time
-import touch
-display.brightness(3)
-def fn(arg):
-    global f
-    print(touch.state())
-    if arg == touch.A:
-        if f != 0:
-            return
-        quiz()
-    if arg == touch.B:
-        if f != 2:
-            return
-        global sum
-        global f
-        f = 0
-        sum = str(sum)
-        text = display.Text(sum, 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
-        display.show(text)
-def bold(num, sec):
-    width = 1
-    timeout = time.time() + sec
-    while True:
-        text = display.Text(num, 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
-        display.show(text)
-        text = display.Text(num, 320 + width, 200, display.WHITE, justify=display.MIDDLE_CENTER)
-        display.show(text)
-        text = display.Text(num, 320, 200 + width, display.WHITE, justify=display.MIDDLE_CENTER)
-        display.show(text)
-        text = display.Text(num, 320 + width, 200 + width, display.WHITE, justify=display.MIDDLE_CENTER)
-        display.show(text)
-        if time.time() >= timeout:
-            break
-def quiz():
-    global sum
-    global f
-    sum = 0
-    f = 1
-    bold("start!", 2)
-    for i in range(5):
-        num = int(random.randint(10, 100))
-        sum += num
-        num = str(num)
-        bold(num, 1)
-    text = display.Text('L button press is answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
-    display.show(text)
-    f = 2
-f = 0
-text = display.Text('R button press is start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
-display.show(text)
-touch.callback(touch.EITHER, fn)
-</textarea>
-    <br>
-    <button onclick="sendFromButton.call(this)" disabled="">send</button>
+    
+    <button onclick="send()" disabled="">send</button>
   </div>
   <div>
     <h3>

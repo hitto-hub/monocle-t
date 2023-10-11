@@ -39,11 +39,11 @@ def quiz():
     sum = 0
     f = 1
     bold("start!", 2)
-    for i in range(5):
-        num = int(random.randint(10, 100))
+    for i in range(5): # <--- ここで問題数
+        num = int(random.randint(10, 100)) # <--- ここで問題の範囲 min, max
         sum += num
         num = str(num)
-        bold(num, 1)
+        bold(num, 1) # <--- ここで表示、表示間隔
     text = display.Text('L button press is answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
     display.show(text)
     f = 2
