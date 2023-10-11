@@ -3,22 +3,30 @@ import display
 import time
 import touch
 display.brightness(3)
-def fn(arg):
+def fn():
     global f
     print(touch.state())
-    if arg == touch.A:
-        if f != 0:
-            return
+    if f == 0:
         quiz()
-    if arg == touch.B:
-        if f != 2:
-            return
+        while (True):
+            if touch.state(touch.EITHER):
+                print("1")
+                break
+        fn()
+    elif f == 2:
         global sum
         global f
         f = 0
         sum = str(sum)
         text = display.Text(sum, 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
         display.show(text)
+        t = time.time()
+        while (True):
+            if touch.state(touch.EITHER) and t + 1 < time.time():
+                print("2")
+                break
+        fn()
+
 def bold(num, sec):
     width = 1
     timeout = time.time() + sec
@@ -44,10 +52,15 @@ def quiz():
         sum += num
         num = str(num)
         bold(num, {int})
-    text = display.Text('L button press is answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+    text = display.Text('touch to display answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
     display.show(text)
     f = 2
 f = 0
-text = display.Text('R button press is start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+text = display.Text('touch to start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
 display.show(text)
-touch.callback(touch.EITHER, fn)
+while (True):
+    print(touch.state(touch.EITHER))
+    if touch.state(touch.EITHER):
+        print("3")
+        break
+fn()
