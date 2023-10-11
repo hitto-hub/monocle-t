@@ -20,8 +20,9 @@ def fn():
         global f
         f = 0
         sum = str(sum)
-        text = display.Text(sum, 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
-        display.show(text, battery)
+        sub = display.Text('ANSWER', 320, 140, display.GREEN, justify=display.MIDDLE_CENTER)
+        text = display.Text(sum, 320, 200, display.GREEN, justify=display.MIDDLE_CENTER)
+        display.show(text, sub, battery)
         t = time.ticks_ms()
         while (True):
             if touch.state(touch.EITHER) and t + 1000 < time.ticks_ms():
@@ -50,7 +51,25 @@ def quiz():
     sum = 0
     f = 1
     battery = display.Text(str(device.battery_level()), 0, 0, display.WHITE, justify=display.TOP_LEFT)
-    bold("start!", 2)
+    timeout = time.ticks_ms() + 1 * 1000
+    while True:
+        text = display.Text("3..", 260, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+        display.show(text, battery)
+        if time.ticks_ms() >= timeout:
+            break
+    timeout = time.ticks_ms() + 1 * 1000
+    while True:
+        text = display.Text("2..", 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+        display.show(text, battery)
+        if time.ticks_ms() >= timeout:
+            break
+    timeout = time.ticks_ms() + 1 * 1000
+    while True:
+        text = display.Text("1..", 380, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+        display.show(text, battery)
+        if time.ticks_ms() >= timeout:
+            break
+    bold("start!", 1)
     global tmp
     for i in range({num}):
         while True:
