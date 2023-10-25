@@ -3,13 +3,17 @@ import display
 import time
 import touch
 import device
+import asyncio
+
 display.brightness(3)
-def fn(arg):
+
+async def fn(arg):
     global f
     if not f == 0:
         return
     quiz()
-def bold(num, sec):
+
+async def bold(num, sec):
     global battery
     width = 1
     timeout = time.ticks_ms() + sec * 1000
@@ -24,7 +28,8 @@ def bold(num, sec):
         display.show(text, battery)
         if time.ticks_ms() >= timeout:
             break
-def quiz():
+
+async def quiz():
     global sum
     global f
     global battery
@@ -49,17 +54,17 @@ def quiz():
         display.show(text, battery)
         if time.ticks_ms() >= timeout:
             break
-    bold("start!", 1)
+    await bold("start!", 1)
     global tmp
-    for i in range({num}):
+    for i in range(3):
         while True:
-            num = int(random.randint({min}, {max}))
+            num = int(random.randint(1, 10))
             if num != tmp:
                 tmp = num
                 break
         sum += num
         num = str(num)
-        bold(num, {int})
+        await bold(num, 1)
     sub = display.Text('Thinking...', 320, 140, display.WHITE, justify=display.MIDDLE_CENTER)
     text = display.Text('touch to display answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
     display.show(text, sub, battery)
@@ -76,10 +81,23 @@ def quiz():
     while (True):
         if t + 1000 < time.ticks_ms():
             break
+
+async def main():
+    global f
+    global tmp
+    global battery
+    tmp = 0
+    battery = display.Text(str(device.battery_level()), 0, 0, display.WHITE, justify=display.TOP_LEFT)
+    text = display.Text('touch to start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
+    display.show(text, battery)
+    while True:
+        await asyncio.sleep(0.1)
+        if touch.state(touch.EITHER):
+            await fn(None)
+            break
+
 f = 0
 tmp = 0
-battery = display.Text(str(device.battery_level()), 0, 0, display.WHITE, justify=display.TOP_LEFT)
-text = display.Text('touch to start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
-display.show(text, battery)
-if f == 0:
-    touch.callback(touch.EITHER, fn)
+battery = None
+asyncio.create_task(main())
+asyncio.get_event_loop().run_forever()
