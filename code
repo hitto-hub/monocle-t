@@ -56,7 +56,7 @@ async def quiz():
             break
     await bold("start!", 1)
     global tmp
-    for i in range({{num}}):
+    for i in range({num}):
         while True:
             num = int(random.randint({min}, {max}))
             if num != tmp:
