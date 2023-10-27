@@ -4,31 +4,15 @@ import time
 import touch
 import device
 display.brightness(3)
-def fn():
+def fn(arg):
     global f
-    global battery
-    print(touch.state())
-    if f == 0:
-        quiz()
-        while (True):
-            if touch.state(touch.EITHER):
-                print("1")
-                break
-        fn()
-    elif f == 2:
-        global sum
-        global f
-        f = 0
-        sum = str(sum)
-        sub = display.Text('ANSWER', 320, 140, display.GREEN, justify=display.MIDDLE_CENTER)
-        text = display.Text(sum, 320, 200, display.GREEN, justify=display.MIDDLE_CENTER)
-        display.show(text, sub, battery)
-        t = time.ticks_ms()
-        while (True):
-            if touch.state(touch.EITHER) and t + 1000 < time.ticks_ms():
-                print("2")
-                break
-        fn()
+    global t
+    print(t)
+    if not f == 0:
+        return
+    if t + 500 > time.ticks_ms():
+        return
+    quiz()
 def bold(num, sec):
     global battery
     width = 1
@@ -47,6 +31,7 @@ def bold(num, sec):
 def quiz():
     global sum
     global f
+    global t
     global battery
     sum = 0
     f = 1
@@ -84,14 +69,23 @@ def quiz():
     text = display.Text('touch to display answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
     display.show(text, sub, battery)
     f = 2
+    while (True):
+        if touch.state(touch.EITHER):
+            break
+    f = 0
+    sum = str(sum)
+    sub = display.Text('ANSWER', 320, 140, display.GREEN, justify=display.MIDDLE_CENTER)
+    text = display.Text(sum, 320, 200, display.GREEN, justify=display.MIDDLE_CENTER)
+    display.show(text, sub, battery)
+    t = time.ticks_ms()
+    while (True):
+        if t + 100 < time.ticks_ms():
+            break
+    print("end")
 f = 0
+tmp = 0
 battery = display.Text(str(device.battery_level()), 0, 0, display.WHITE, justify=display.TOP_LEFT)
 text = display.Text('touch to start', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
 display.show(text, battery)
-tmp = 0
-while (True):
-    print(touch.state(touch.EITHER))
-    if touch.state(touch.EITHER):
-        print("3")
-        break
-fn()
+t = time.ticks_ms()
+touch.callback(touch.EITHER, fn)
