@@ -56,15 +56,15 @@ async def quiz():
             break
     await bold("start!", 1)
     global tmp
-    for i in range(3):
+    for i in range({{num}}):
         while True:
-            num = int(random.randint(1, 10))
+            num = int(random.randint({min}, {max}))
             if num != tmp:
                 tmp = num
                 break
         sum += num
         num = str(num)
-        await bold(num, 1)
+        await bold(num, {int})
     sub = display.Text('Thinking...', 320, 140, display.WHITE, justify=display.MIDDLE_CENTER)
     text = display.Text('touch to display answer', 320, 200, display.WHITE, justify=display.MIDDLE_CENTER)
     display.show(text, sub, battery)
